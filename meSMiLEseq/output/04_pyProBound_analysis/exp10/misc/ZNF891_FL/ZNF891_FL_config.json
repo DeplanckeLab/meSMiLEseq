@@ -1,0 +1,14 @@
+[
+{"function": "output", "outputPath": "../output/04_pyProBound_analysis/exp10/misc/ZNF891_FL/", "baseName": "ZNF891_FL_testmodel", "printTrajectory": true, "verbose": false},
+{"function": "optimizerSetting", "lambdaL2": 1e-06, "pseudocount": 20, "expBound": 40, "nThreads": 4, "nRetries": 3, "likelihoodThreshold": 0.0002},
+{"function": "setAlphabet", "letterOrder": "ACGTmg", "letterComplement": "C-G,A-T,m-g"},
+{"function": "addTable", "leftFlank": "GGGGTACTGTGGAGATAGAGTAGGTTTACTA", "rightFlank": "TAGAGAAACTCCCTGAGACC", "variableRegionLength": 24, "countTableFile": "../output/04_pyProBound_analysis/exp10/misc/ZNF891_FL/f_ZNF891_FL_output.tsv", "nColumns": 2, "inputFileType": "tsv"},
+{"function": "addSELEX", "modelType": "SELEX", "bindingModes": [-1], "bindingModeInteractions": [-1], "cumulativeEnrichment": true, "concentration": 1, "bindingSaturation": false},
+{"function": "addNS"},
+{"function": "addBindingMode", "size": 12, "flankLength": 18, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 1, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]},
+{"function": "addBindingMode", "size": 12, "flankLength": 18, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 2, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]},
+{"function": "addBindingMode", "size": 12, "flankLength": 18, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 3, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]}
+]

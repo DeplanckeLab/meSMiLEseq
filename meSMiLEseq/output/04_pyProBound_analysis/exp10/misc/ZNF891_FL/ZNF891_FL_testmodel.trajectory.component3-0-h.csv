@@ -1,0 +1,6 @@
+{"modelSettings":{"enrichmentModel":[{"bindingSaturation":false,"cumulativeEnrichment":true,"concentration":1,"modelType":"SELEX","bindingModeInteractions":[],"bindingModes":[0,1,2,3],"modifications":[]}],"countTable":[{"leftFlank":"GGGGTACTGTGGAGATAGAGTAGGTTTACTA","transliterate":{"in":[],"out":[]},"variableRegionLength":24,"modeledColumns":[0,1],"inputFileType":"tsv","nColumns":2,"rightFlank":"TAGAGAAACTCCCTGAGACC","countTableFile":"../output/04_pyProBound_analysis/exp10/misc/ZNF891_FL/f_ZNF891_FL_output.tsv"}],"bindingModeInteractions":[],"bindingModes":[{"size":0,"fitLogActivity":true,"flankLength":0,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":12,"fitLogActivity":true,"flankLength":18,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":12,"fitLogActivity":true,"flankLength":18,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":12,"fitLogActivity":true,"flankLength":18,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]}]},"packing":{"enrichmentModel":[{}],"countTable":[{"h":[0,1]}],"bindingModeInteractions":[],"bindingModes":[{},{},{},{}]}}
+2.0085,-2.0085
+2.0085,-2.0085
+2.0642,-2.0642
+2.0647,-2.0647
+2.0648,-2.0648

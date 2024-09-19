@@ -1,0 +1,16 @@
+{"modelSettings":{"enrichmentModel":[{"bindingSaturation":false,"cumulativeEnrichment":true,"concentration":1,"modelType":"SELEX","bindingModeInteractions":[],"bindingModes":[0,1,2,3],"modifications":[]}],"countTable":[{"leftFlank":"GGGGTACTGTGGAGATAGAGTAGGTTTACTA","transliterate":{"in":[],"out":[]},"variableRegionLength":24,"modeledColumns":[0,1],"inputFileType":"tsv","nColumns":2,"rightFlank":"TAGAGAAACTCCCTGAGACC","countTableFile":"../output/04_pyProBound_analysis/exp10/misc/ZNF891_FL/f_ZNF891_FL_output.tsv"}],"bindingModeInteractions":[],"bindingModes":[{"size":0,"fitLogActivity":true,"flankLength":0,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":12,"fitLogActivity":true,"flankLength":18,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":12,"fitLogActivity":true,"flankLength":18,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":12,"fitLogActivity":true,"flankLength":18,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]}]},"packing":{"enrichmentModel":[{}],"countTable":[{"h":[2,3]}],"bindingModeInteractions":[],"bindingModes":[{"mononucleotide":[],"activity":[[0,1]]},{},{},{}]}}
+-6.9078,-6.9078,-3.1022,3.1022
+-6.9078,-6.9078,-3.1022,3.1022
+-6.9077,-6.9076,-3.1022,3.1022
+-6.9072,-6.9071,-3.1019,3.1019
+-6.8279,-6.8298,-3.0644,3.0644
+-6.6717,-6.6781,-2.9898,2.9898
+-6.1633,-6.1855,-2.7455,2.7455
+-5.0454,-5.1041,-2.2071,2.2071
+-2.9317,-3.0613,-1.1869,1.1869
+-0.6137,-0.8234,-0.0659,0.0659
+0.3350,0.0905,0.3949,-0.3949
+0.1690,-0.0711,0.3159,-0.3159
+0.0208,-0.2144,0.2445,-0.2445
+0.0007,-0.2338,0.2348,-0.2348
+-0.0000,-0.2345,0.2345,-0.2345

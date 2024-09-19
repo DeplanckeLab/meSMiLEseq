@@ -1,0 +1,11 @@
+[
+{"function": "output", "outputPath": "../output/03_ProBound_significant_TFs/calculations/PRDM13/UT380_154_SS014_9mer/15bps", "baseName": "PRDM13_testmodel", "printTrajectory": true, "verbose": false},
+{"function": "optimizerSetting", "lambdaL2": 1e-06, "pseudocount": 20, "expBound": 40, "nThreads": 4, "nRetries": 3, "likelihoodThreshold": 0.0002},
+{"function": "addTable", "leftFlank": "TCGTCGGCAGCGTCAGATGTGTATAAGAGACAGAACGAGTGTG", "rightFlank": "CTGTCTCTTATACACATCTCCGAGCCCACGAGAC", "variableRegionLength": 40, "countTableFile": "../output/03_ProBound_significant_TFs/calculations/PRDM13/UT380_154_SS014_9mer/15bps/f_output.tsv.gz", "nColumns": 2, "inputFileType": "tsv.gz"},
+{"function": "addSELEX", "modelType": "SELEX", "bindingModes": [-1], "bindingModeInteractions": [-1], "cumulativeEnrichment": true, "concentration": 1, "bindingSaturation": false},
+{"function": "addNS"},
+{"function": "addBindingMode", "size": 15, "flankLength": 30, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 1, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]},
+{"function": "addBindingMode", "size": 15, "flankLength": 30, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 2, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]}
+]

@@ -1,0 +1,7 @@
+{"modelSettings":{"enrichmentModel":[{"bindingSaturation":false,"cumulativeEnrichment":true,"concentration":1,"modelType":"SELEX","bindingModeInteractions":[],"bindingModes":[0,1,2],"modifications":[]}],"countTable":[{"leftFlank":"TCGTCGGCAGCGTCAGATGTGTATAAGAGACAGAACGAGTGTG","transliterate":{"in":[],"out":[]},"variableRegionLength":40,"modeledColumns":[0,1],"inputFileType":"tsv.gz","nColumns":2,"rightFlank":"CTGTCTCTTATACACATCTCCGAGCCCACGAGAC","countTableFile":"../output/03_ProBound_significant_TFs/calculations/PRDM13/UT380_154_SS014_9mer/15bps/f_output.tsv.gz"}],"bindingModeInteractions":[],"bindingModes":[{"size":0,"fitLogActivity":true,"flankLength":0,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":15,"fitLogActivity":true,"flankLength":30,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":15,"fitLogActivity":true,"flankLength":30,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]}]},"packing":{"enrichmentModel":[{}],"countTable":[{"h":[0,1]}],"bindingModeInteractions":[],"bindingModes":[{},{},{}]}}
+0.0000,0.0000
+0.0000,0.0000
+-3.5355,3.5355
+-3.2159,3.2159
+-3.2178,3.2178
+-3.2180,3.2180
