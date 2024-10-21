@@ -23,7 +23,9 @@ Each folder consists of subfolders containing exemplary data, scripts, and an ou
 - folder contains all TF binding motifs showcased in **Figure 1** as 'position-specific affinity matrices' and DNA logos
 
 5. **probound_operator**
-- folder contatins source code of a package to operate ProBound from Python, provided ProBound is installed and its absolute path is stored in environment variable PROBOUND_JAR_FULL_PATH. The environment variable can be defined using the following command:
+- folder contatins source code of a package to operate ProBound from Python, provided ProBound is installed and its absolute path is stored in environment variable PROBOUND_JAR_FULL_PATH. You can create the package using the following code:
 ```
 export PROBOUND_JAR_FULL_PATH="path/to/probound/jar"
+cd probound_operator
+python3 -m build
 ```
