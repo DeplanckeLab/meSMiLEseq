@@ -29,3 +29,13 @@ export PROBOUND_JAR_FULL_PATH="path/to/probound/jar"
 cd probound_operator
 python3 -m build
 ```
+
+## Miscellaneous information
+
+Libraries and versions used in the analysis: 
+- Python (3.9.5)
+- pandas (2.0.3)
+- NumPy (1.26.4)
+- SciPy (1.13.1)
+- Matplotlib (3.6.2)
+- Logomaker (0.8)
