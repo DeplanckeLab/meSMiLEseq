@@ -23,7 +23,7 @@ import statsmodels.stats.multitest as multi #to perform benjamini hochberg corre
 
 
 print('#########################################################################')
-print('#### Data Wrangling with SmileSeq sequences ©Antoni Gralak_30.05.2023####')
+print('#### Data Wrangling with SmileSeq sequences ©Antoni Gralak_19.05.2025####')
 print('#########################################################################')
 print('Setting env...')
 this_path = os.getcwd()
@@ -325,7 +325,7 @@ for iterator, BC in enumerate(to_be_analyzed):
         
                     odds, p = scipy.stats.fisher_exact(contingency_table, alternative = 'greater')
         
-                    result_df.loc[result_df[(result_df['kmer'] == seq) & (result_df['mod'] == mod)].index[0]]['pval'] = p
+                    result_df.loc[result_df[(result_df['kmer'] == seq) & (result_df['mod'] == mod)].index[0], 'pval'] = p
         
 
         result_df["p_adjust"] = multi.multipletests(result_df["pval"], method="fdr_bh")[1]

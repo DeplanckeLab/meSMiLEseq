@@ -133,12 +133,12 @@ def hamming_distance(s1, s2):
 
 def find_similar_strings(input_str, strings):
     """
-    Finds strings in the list `strings` that have a Hamming distance of up to 2
+    Finds strings in the list `strings` that have a Hamming distance of 1
     from the input string `input_str`.
     """
     similar_strings = []
     for s in strings:
-        if hamming_distance(input_str, s) <= 2:
+        if hamming_distance(input_str, s) < 2:
             similar_strings.append(True)
         else:
             similar_strings.append(False)
@@ -158,15 +158,15 @@ for TF in to_be_analyzed:
     
     
     ##########################################################################################
-    # input first, change all mBCs with hamming dsitance 2 or less into the corresponding mBCs.
+    # input first, change all mBCs with hamming distance 1 into the corresponding mBCs.
     mBCs = input_df['methl']
     
-    #change all mBC which are hamming distance 2 from AGTA to AGTA
+    #change all mBC which are hamming distance 1 from AGTA to AGTA
     similar_strings = find_similar_strings(methylated_BC, mBCs)
     
     input_df.loc[similar_strings, 'methl'] = methylated_BC
     
-    #change all mBC which are hamming distance 2 from GAAT to GAAT
+    #change all mBC which are hamming distance 1 from GAAT to GAAT
     similar_strings = find_similar_strings(unmethylated_BC, mBCs)
     
     input_df.loc[similar_strings, 'methl'] = unmethylated_BC
@@ -176,12 +176,12 @@ for TF in to_be_analyzed:
     # the same for eluted
     mBCs = eluted_df['methl']
     
-    #change all mBC which are hamming distance 2 from AGTA to AGTA
+    #change all mBC which are hamming distance 1 from AGTA to AGTA
     similar_strings = find_similar_strings(methylated_BC, mBCs)
     
     eluted_df.loc[similar_strings, 'methl'] = methylated_BC
     
-    #change all mBC which are hamming distance 2 from GAAT to GAAT
+    #change all mBC which are hamming distance 1 from GAAT to GAAT
     similar_strings = find_similar_strings(unmethylated_BC, mBCs)
     
     eluted_df.loc[similar_strings, 'methl'] = unmethylated_BC

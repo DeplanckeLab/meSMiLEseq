@@ -176,17 +176,15 @@ def calculate_ratios(experiment_name, TF, kmer, data_path):
     
     # iterate over the filtered kmer dataframe and divide the eluted count by input 
     # counts (methylated and unmethylated separately)
-    m_dict = {}
-    nm_dict = {}
-    for df in filtered_kmer.groupby('kmer'):
+    for kmer, df in filtered_kmer.groupby('kmer'):
         # extract count of methylated kmer in input
-        im_count = df[1][(df[1]['mod'] == 'methl') & (df[1]['status'] == 'input')]['count'].values
+        im_count = df[(df['mod'] == 'methl') & (df['status'] == 'input')]['count'].values
         # generate ratio and save as dictionary
-        m_dict[df[0]] = df[1][df[1]['mod'] == 'methl']['count'].values/im_count
+        m_dict[kmer] = df[df['mod'] == 'methl']['count'].values/im_count
         # extract count of nonmethylated kmer in input
-        inm_count = df[1][(df[1]['mod'] == 'nonmethl') & (df[1]['status'] == 'input')]['count'].values
+        inm_count = df[(df['mod'] == 'nonmethl') & (df['status'] == 'input')]['count'].values
         # generate ratio
-        nm_dict[df[0]] = df[1][df[1]['mod'] == 'nonmethl']['count'].values/inm_count
+        nm_dict[kmer] = df[df['mod'] == 'nonmethl']['count'].values/inm_count
 
     # store everything in a new df
     new_df = pd.DataFrame.from_dict(m_dict, orient='index', columns=['input_methl', 'eluted_methl']).T.replace([], np.nan)
@@ -915,13 +913,13 @@ def create_PWM(ppm, background = 0.25, bits=2):
     a different model (in form of a df).
     First, add pseudocounts, then create the log2 of the ratios of df over background. Background can be either float or pd.DataFrame."""
 
-    ppm = ppm + 0.00001
+    ppm = ppm + 0.00000001
     if bits != 2:
         if type(background) == float:
             pwm = np.log(ppm / background)/ np.log(bits)
     
         elif isinstance(background, pd.DataFrame):
-            background = background + 0.00001
+            background = background + 0.00000001
             pwm = np.log(ppm / background)/ np.log(bits)
 
         else:
@@ -933,7 +931,7 @@ def create_PWM(ppm, background = 0.25, bits=2):
             pwm = np.log2(ppm / background)
     
         elif isinstance(background, pd.DataFrame):
-            background = background + 0.00001
+            background = background + 0.00000001
             pwm = np.log2(ppm / background)
 
         else:
