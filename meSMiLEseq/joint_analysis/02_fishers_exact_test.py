@@ -23,9 +23,6 @@ print('#### Fishers exact test with SmileSeq sequences ©Antoni Gralak_20.08.24#
 print('#########################################################################')
 print('Setting env...')
 this_path = os.getcwd()
-sys.path.append(this_path)
-
-import functions
 
 # Load metadata
 metadata = pd.read_csv('../exemplary_data/metadata.csv', sep=';')
@@ -159,3 +156,17 @@ for TF in to_be_analyzed:
         print('Done!')
 
         result_df.to_csv(save_path + f'{experiment_name}_{TF}_{kmer}mer_pvalues.csv', index=False)
+
+
+        # Now see how many kmers are significant
+        
+        threshold = 0.05
+
+        result_df['below_threshold'] = result_df['p_adjust'] < threshold
+
+ 
+        significant = result_df[result_df['below_threshold'] == True]
+        
+        if len(significant) >= 1:
+            significant.to_csv(save_path + f'{experiment_name}_{TF}_significant_{kmer}mers.csv', index=False)
+        

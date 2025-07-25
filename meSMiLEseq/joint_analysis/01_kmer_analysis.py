@@ -27,13 +27,13 @@ print('#### Data Wrangling with SmileSeq sequences ©Antoni Gralak_19.05.2025###
 print('#########################################################################')
 print('Setting env...')
 this_path = os.getcwd()
-sys.path.append(this_path)
+sys.path.append('/data/gralak/meSMiLEseq_github/meSMiLEseq/')
 
 
 # %%
 
 
-import my_functions
+import utils
 
 
 # %%
@@ -253,7 +253,7 @@ for iterator, BC in enumerate(to_be_analyzed):
 
     for kmer in kmers:
         print(f'Starting with {kmer}mer for {name}...')
-        large_df = my_functions.kmer_counting(df=[input_df, eluted_df],
+        large_df = utils.kmer_counting(df=[input_df, eluted_df],
                                               kmer=kmer,
                                               status=['input','eluted'],
                                               one_df=False,
@@ -334,7 +334,7 @@ for iterator, BC in enumerate(to_be_analyzed):
 
         print('Done!')
 
-        result_df.to_csv(output_path_02 + f'{name}_{str(kmer)}kmer_pvalues.csv', index=False)
+        result_df.to_csv(output_path_02 + f'{name}_{str(kmer)}mer_pvalues.csv', index=False)
         print('Done!')
         print('#' * 10)
 
