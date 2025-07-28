@@ -1182,6 +1182,8 @@ def kmer_scatterplots(ratio_df, coords=None, ax=None, figsize=(5.5, 5.5)):
     ax.set_xlabel('methylated DNA', fontfamily='sans-serif', fontsize=10, fontstyle='italic')
     ax.set_ylabel('unmethylated DNA', fontfamily='sans-serif', fontsize=10, fontstyle='italic')
 
+    
+
     if created_fig:
         plt.tight_layout()
         plt.show()
