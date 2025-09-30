@@ -35,7 +35,7 @@ except FileExistsError:
     pass
 
 # load metadata file
-metadata = pd.read_csv(data_path + '/metadata.csv', sep=';')
+metadata = pd.read_csv('../metadata.csv', sep=';')
 
 
 # Creating a parser argument

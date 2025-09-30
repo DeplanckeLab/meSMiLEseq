@@ -27,7 +27,7 @@ print('#### Data Wrangling with SmileSeq sequences ©Antoni Gralak_19.05.2025###
 print('#########################################################################')
 print('Setting env...')
 this_path = os.getcwd()
-sys.path.append('/data/gralak/meSMiLEseq_github/meSMiLEseq/')
+sys.path.append('../meSMiLEseq/')
 
 
 # %%
