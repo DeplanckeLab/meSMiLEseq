@@ -1,0 +1,19 @@
+[project]
+name = "pyProBound_operator"
+description = "ProBound model training, output analysis, automatic input preparation."
+version = "0.0.1"
+authors = [
+    { name = "Katerina Faltejskova", email = "katerina.faltejskova@uochb.cas.cz" }
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "pyProBound",
+    "seaborn",
+    "matplotlib",
+    "pyfastaq",
+    "logomaker",
+]
+
+[tool.setuptools]
+packages = ["pyProBound_operator"]
