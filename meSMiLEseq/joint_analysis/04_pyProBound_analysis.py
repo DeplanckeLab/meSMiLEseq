@@ -29,14 +29,6 @@ this_path = os.getcwd()
 sys.path.append(this_path)
 
 
-# In[3]:
-
-
-import my_functions
-
-
-# In[ ]:
-
 
 # Creating a parser argument
 parser = argparse.ArgumentParser("""This script reads in sequences generated in 00_read_in and calculates a dGG motif using ProBound.""")

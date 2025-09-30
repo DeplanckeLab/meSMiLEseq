@@ -23,7 +23,7 @@ print('#########################################################################
 #Define paths
 this_path = os.getcwd()
 sys.path.append(this_path)
-import functions
+import utils
 
 data_path = '../exemplary_data/'
 
@@ -88,15 +88,15 @@ print('Loading files...')
 
 all_files = os.listdir(data_path)
 
-eluted_seqs = functions.filter_my_files_for_fastq(all_files, experiment_name)
+eluted_seqs = utils.filter_my_files_for_fastq(all_files, experiment_name)
 
 
-input_seqs = functions.filter_my_files_for_fastq(all_files, input_id)
+input_seqs = utils.filter_my_files_for_fastq(all_files, input_id)
 
 
 # first process eluted
 print('Reading eluted sequences...')
-eluted_seqs = [functions.readin_fastq(data_path,eluted_seqs[x]) for x in range(len(eluted_seqs))] 
+eluted_seqs = [utils.readin_fastq(data_path,eluted_seqs[x]) for x in range(len(eluted_seqs))] 
 
 
 # Important to check read config! In this one we had a 45/45 split, my library is 75 bp i.e 15 overlap. 
@@ -109,10 +109,10 @@ eluted_seqs = [functions.readin_fastq(data_path,eluted_seqs[x]) for x in range(l
 
 
 if eluted_seqs[0].iloc[0,0][0:4] == 'GGTC':
-    rt_eluted_seqs = [functions.rev_complement(eluted_seqs[0].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
+    rt_eluted_seqs = [utils.rev_complement(eluted_seqs[0].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
     eluted_seqs = eluted_seqs[1]
 else:
-    rt_eluted_seqs = [functions.rev_complement(eluted_seqs[1].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
+    rt_eluted_seqs = [utils.rev_complement(eluted_seqs[1].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
     eluted_seqs = eluted_seqs[0]
     
 rt_eluted_seqs = pd.DataFrame(rt_eluted_seqs)
@@ -204,13 +204,13 @@ for TF in to_be_analyzed:
 ######################################################################################################
 # Now, exactly the same for the input sequences
 print('Reading input sequences...')
-input_seqs = [functions.readin_fastq(data_path,input_seqs[x]) for x in range(len(input_seqs))] 
+input_seqs = [utils.readin_fastq(data_path,input_seqs[x]) for x in range(len(input_seqs))] 
 
 if input_seqs[0].iloc[0,0][0:4] == 'GGTC':
-    rt_input_seqs = [functions.rev_complement(input_seqs[0].iloc[k,0]) for k in range(len(input_seqs[0]))]
+    rt_input_seqs = [utils.rev_complement(input_seqs[0].iloc[k,0]) for k in range(len(input_seqs[0]))]
     input_seqs = input_seqs[1]
 else:
-    rt_input_seqs = [functions.rev_complement(input_seqs[1].iloc[k,0]) for k in range(len(input_seqs[0]))]
+    rt_input_seqs = [utils.rev_complement(input_seqs[1].iloc[k,0]) for k in range(len(input_seqs[0]))]
     input_seqs = input_seqs[0]
     
 rt_input_seqs = pd.DataFrame(rt_input_seqs)
