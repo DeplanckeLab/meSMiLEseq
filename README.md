@@ -1,4 +1,4 @@
-This repository contains code to reproduce analyses presented in the paper 'Identification of methylation-sensitive human transcription factors using meSMiLE-seq'. 
+This repository contains code to reproduce analyses presented in the paper 'Identification of methylation-sensitive human transcription factors using meSMiLE-seq'. The 'main' branch contains analyses requested during the revisions, the 'initial_release' branch is the archive of the 1st version.
 
 > [!NOTE]
 > **Prerequisites**
@@ -14,7 +14,7 @@ Each folder consists of subfolders containing exemplary data, scripts, and an ou
 - analysis of classical SMiLE-seq experiments by using a Fisher's exact test to prefilter raw sequencing reads before *de novo* motif discovery via ProBound
 
 2. **meSMiLEseq**
-- analysis of methylation-sensitive SMiLE-seq data to create methylation-aware binding models and *k*-mer scatterplots
+- analysis of methylation-sensitive SMiLE-seq data to create methylation-aware binding models and *k*-mer scatterplots, as well as separated ProBound analyses for methylated and unmethylated libraries
 
 3. **WGBS_analysis**
 - exemplary analysis pipeline using PRDM13 to show CG methylation patterns at individual motif occurrences in cells by intersecting ChIP-seq and WGBS data
