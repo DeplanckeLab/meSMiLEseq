@@ -6,7 +6,7 @@ CORES_SCRIPT1=6
 CORES_SCRIPT2=6
 
 # List of experiments
-EXPERIMENTS=$(printf "SmSAG%02d\n" {3..3})
+EXPERIMENTS=$(printf "exp%2d\n" {3..3})
 
 # Paths to your scripts
 SCRIPT1="01_kmer_analysis.py"

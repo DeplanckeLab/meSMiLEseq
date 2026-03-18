@@ -1,0 +1,8 @@
+{"modelSettings":{"enrichmentModel":[{"bindingSaturation":false,"cumulativeEnrichment":true,"concentration":1,"modelType":"SELEX","bindingModeInteractions":[],"bindingModes":[0,1,2,3],"modifications":[]}],"countTable":[{"leftFlank":"AGTAGGTTTACTA","transliterate":{"in":[],"out":[]},"variableRegionLength":24,"modeledColumns":[0,1],"inputFileType":"tsv","nColumns":2,"rightFlank":"TAGAG","countTableFile":"/data/gralak/meSMiLEseq_github/meSMiLEseq/separate_analysis/output_separate_analysis/exp10/misc/ZNF891_FL/f_ZNF891_FL_bm6_methylated_output.tsv"}],"bindingModeInteractions":[],"bindingModes":[{"size":0,"fitLogActivity":true,"flankLength":0,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":6,"fitLogActivity":true,"flankLength":5,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":6,"fitLogActivity":true,"flankLength":5,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":6,"fitLogActivity":true,"flankLength":5,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]}]},"packing":{"enrichmentModel":[{}],"countTable":[{"h":[0,1]}],"bindingModeInteractions":[],"bindingModes":[{},{},{},{}]}}
+0.2510,-0.2510
+0.2510,-0.2510
+0.9581,-0.9581
+0.8864,-0.8864
+0.8770,-0.8770
+0.8773,-0.8773
+0.8773,-0.8773

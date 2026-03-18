@@ -22,12 +22,12 @@ print('#########################################################################
 
 #Define paths
 this_path = os.getcwd()
-sys.path.append(this_path)
+sys.path.append(os.path.join(this_path, '..'))
 import utils
 
 data_path = '../exemplary_data/'
 
-save_path = '../output/00_read_in_data/'
+save_path = '../output_joint_analysis/00_read_in_data/'
 
 try:
     os.mkdir(save_path)
@@ -35,7 +35,7 @@ except FileExistsError:
     pass
 
 # load metadata file
-metadata = pd.read_csv('../metadata.csv', sep=';')
+metadata = pd.read_csv('../metadata.csv')
 
 
 # Creating a parser argument
@@ -109,10 +109,10 @@ eluted_seqs = [utils.readin_fastq(data_path,eluted_seqs[x]) for x in range(len(e
 
 
 if eluted_seqs[0].iloc[0,0][0:4] == 'GGTC':
-    rt_eluted_seqs = [utils.rev_complement(eluted_seqs[0].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
+    rt_eluted_seqs = [utils.rev_complement_seq(eluted_seqs[0].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
     eluted_seqs = eluted_seqs[1]
 else:
-    rt_eluted_seqs = [utils.rev_complement(eluted_seqs[1].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
+    rt_eluted_seqs = [utils.rev_complement_seq(eluted_seqs[1].iloc[k,0]) for k in range(len(eluted_seqs[0]))]
     eluted_seqs = eluted_seqs[0]
     
 rt_eluted_seqs = pd.DataFrame(rt_eluted_seqs)
@@ -207,10 +207,10 @@ print('Reading input sequences...')
 input_seqs = [utils.readin_fastq(data_path,input_seqs[x]) for x in range(len(input_seqs))] 
 
 if input_seqs[0].iloc[0,0][0:4] == 'GGTC':
-    rt_input_seqs = [utils.rev_complement(input_seqs[0].iloc[k,0]) for k in range(len(input_seqs[0]))]
+    rt_input_seqs = [utils.rev_complement_seq(input_seqs[0].iloc[k,0]) for k in range(len(input_seqs[0]))]
     input_seqs = input_seqs[1]
 else:
-    rt_input_seqs = [utils.rev_complement(input_seqs[1].iloc[k,0]) for k in range(len(input_seqs[0]))]
+    rt_input_seqs = [utils.rev_complement_seq(input_seqs[1].iloc[k,0]) for k in range(len(input_seqs[0]))]
     input_seqs = input_seqs[0]
     
 rt_input_seqs = pd.DataFrame(rt_input_seqs)

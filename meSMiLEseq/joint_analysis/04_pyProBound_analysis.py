@@ -25,20 +25,33 @@ print('#################################################################')
 print('#### Motif generation with Probound ©Antoni Gralak_19.05.2025####')
 print('#################################################################')
 print('Setting env...')
+
 this_path = os.getcwd()
-sys.path.append(this_path)
+sys.path.append(os.path.join(this_path, '..'))
 
+# Load metadata
+metadata = pd.read_csv('../metadata.csv', sep=',')
 
+data_path = '../output_joint_analysis/00_read_in_data/'
+
+save_path = '../output_joint_analysis/04_pyProBound_analysis/'
+
+try:
+    os.mkdir(save_path)
+except FileExistsError:
+    pass
 
 # Creating a parser argument
 parser = argparse.ArgumentParser("""This script reads in sequences generated in 00_read_in and calculates a dGG motif using ProBound.""")
 
-parser.add_argument('-sms', '--sms_name', type=str, help='Smile-seq experiment number. E.g. SmSAG01.', required=True)
+parser.add_argument('-sms', '--sms_name', type=str, help='Smile-seq experiment number. E.g. exp1.', required=True)
 parser.add_argument('-bs', '--binding_size', type=int, nargs='+', help="""The binding size which is to be computed by ProBound.
 By default [6, 9, 12, 15, 24]. Parse multiple or a single integer.""")
-parser.add_argument('-bc', '--Barcode', type=str, nargs='+', help="""Barcodes to be included. By default all BC1 to 12.
-Parse multiple or single BCs.""")
-#parser.add_argument('-gr', '--graphs', type=str, help='Do you want summary graphs? True/False', required=True)
+
+
+parser.add_argument('-tf', '--Transcription_factor', type=str, nargs='+', help="""TFs to be included. By default all TFs
+ that were approved in the experiment. Parse multiple or single TFs.""")
+
 
 # Parse the command line arguments
 args = parser.parse_args()
@@ -55,127 +68,58 @@ experiment_name = arguments['sms_name']
 # In[5]:
 
 
-if experiment_name in ['SmSAG01', 'SmSAG02', 'SmSAG03']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20220315_input/00_read_in_data/output/'
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAGT"
-
-elif experiment_name in ['SmSAG04', 'SmSAG05', 'SmSAG06', 'SmSAG07', 'SmSAG08']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20220915_input/00_read_in_data/output/'
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAAT"
-
-elif experiment_name in ['SmSAG09', 'SmSAG10', 'SmSAG11', 'SmSAG12', 'SmSAG13', 'SmSAG14']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20230228_input/00_read_in_data/output/'
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAAT"
-
-elif experiment_name in ['SmSAG15', 'SmSAG16', 'SmSAG17', 'SmSAG18', 'SmSAG19', 'SmSAG20', 'SmSAG21', 'SmSAG22', 'SmSAG23']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20230503_input/00_read_in_data/output/'
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAAT"
-
-else:
-    print("-sms needs to be a SmileSeq name such as SmSAG01 (possible options 01 to 23). Stopping script.")
-    sys.exit(1)
-
-
-# In[6]:
-
-
-data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/' + experiment_name + '/00_read_in_data/output/'
-
-calc_path = f'/home/gralak/updepla/users/gralak/SmileSeq_paper/meSMiLEseq_joint_analysis/{experiment_name}/04_ProBound_analysis/calc/'
-psam_path = f'/home/gralak/updepla/users/gralak/SmileSeq_paper/meSMiLEseq_joint_analysis/{experiment_name}/04_ProBound_analysis/psam/'
-
-
-
-try:
-    os.makedirs(calc_path)
-except FileExistsError:
-    pass
-
-try:
-    os.makedirs(psam_path)
-except FileExistsError:
-    pass
-
-
-
-# In[ ]:
-
-
-if experiment_name == 'SmSAG01':
-    barcodes = pd.read_csv(this_path + '/' + experiment_name + '/Barcodes.csv', sep='\t', header=None)
-    TFs = pd.read_csv(this_path + '/' + experiment_name + '/analysed_TFs.csv', sep=';')
-    
+if experiment_name in ['exp1', 'exp2', 'exp3']:
+    input_id = 'input1' 
     methylated_BC = "AGTA"
     unmethylated_BC = "GAGT"
     #flanking regions of the library and corresponding parameter for ProBound model
     left = ''
     right = ''
     binding_mode_flank=5
-
-elif experiment_name in ['SmSAG02', 'SmSAG03']:
-    barcodes = pd.read_csv(this_path + '/' + experiment_name + '/Barcodes.csv', sep=',', header=None)
-    TFs = pd.read_csv(this_path + '/' + experiment_name + '/analysed_TFs.csv', sep=';')
-
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAGT"
-    left = ''
-    right = ''
-    binding_mode_flank=5
-
-else:
-    barcodes = pd.read_csv(this_path + '/' + experiment_name + '/Barcodes.csv', header=None)
-    TFs = pd.read_csv(this_path + '/' + experiment_name + '/analysed_TFs.csv')
-    
+elif experiment_name in ['exp4', 'exp5', 'exp6', 'exp7', 'exp8']:
+    input_id = 'input2'
     methylated_BC = "AGTA"
     unmethylated_BC = "GAAT"
     left = 'GGGGTACTGTGGAGATAG'
     right = 'AAACTCCCTGAGACC'
     binding_mode_flank=18
+elif experiment_name in ['exp9', 'exp10', 'exp11', 'exp12', 'exp13', 'exp14']:
+    input_id = 'input3'
+    methylated_BC = "AGTA"
+    unmethylated_BC = "GAAT"
+    left = 'GGGGTACTGTGGAGATAG'
+    right = 'AAACTCCCTGAGACC'
+    binding_mode_flank=18
+elif experiment_name in ['exp15', 'exp16', 'exp17', 'exp18', 'exp19', 'exp20', 'exp21', 'exp22', 'exp23']:
+    input_id = 'input4'
+    methylated_BC = "AGTA"
+    unmethylated_BC = "GAAT"
+    left = 'GGGGTACTGTGGAGATAG'
+    right = 'AAACTCCCTGAGACC'
+    binding_mode_flank=18
+else:
+    print("-sms needs to be a experiment ID, e.g. exp1 (possible options 1 to 23). Stopping script.")
+    sys.exit(1)
 
 
-# ### For Probound, I need to define the flanking regions. I.e. left everything, the protein had contact with before the mBC, BC and lfl; and right everything after rfl. Rfl is currently 5nts.
 
-# ### Barcodes and analysed TFs.
+# For Probound, one needs to define the flanking regions. 
+# I.e. left everything, the protein had contact with before the mBC, BC and lfl; and right everything after rfl. 
+# Rfl is currently 5nts.
 
-# In[8]:
+# Define what will be analyzed
 
-
-
-
-TFs = TFs[barcodes.loc[:,2]]
-
-#reindex
-TFs['index'] = np.arange(0, len(TFs), step=1)
-TFs = TFs.rename(index=TFs['index'])
-
-
-# # Define what will be analyzed
-
-# In[9]:
-
-
-if arguments['Barcode']:
-    to_be_analyzed = arguments['Barcode']
+if arguments['Transcription_factor']:
+    to_be_analyzed = arguments['Transcription_factor']
     
 else:
-    to_be_analyzed = ['BC1','BC2','BC3','BC4','BC5','BC6','BC7','BC8','BC9','BC10','BC11','BC12']
-
-
-
-# In[10]:
+    to_be_analyzed = list(metadata[(metadata['experiment'] == experiment_name) & (metadata['approved'] == True)]['TF'])
 
 
 if arguments['binding_size']:
     binding_mode_size = arguments['binding_size']
 else:
     binding_mode_size = [6, 9, 12, 15, 24]
-
-
-# In[ ]:
 
 
 print('Parameters for analysis:')
@@ -185,8 +129,6 @@ print(f'With binding modes of the size(s): {binding_mode_size}.')
 
 
 # # Loop over it, read in corresponding input and eluted samples which are stored as csvs, change all CpG of methylated sequences into mg and run ProBound
-
-# In[11]:
 
 
 # Since I some barcodes might have mutations, these two functions will allow to identify the mBCs with
@@ -213,16 +155,15 @@ def find_similar_strings(input_str, strings):
     return similar_strings
 
 
-# In[ ]:
-
 
 print('Starting analysis!')
-for BC in to_be_analyzed:
+for TF in to_be_analyzed:
     
-    print('loading necessary datasets...')
-    print(f'loading {BC}...')
-    input_df = pd.read_csv(input_data_path + f'{BC}_contamination_filtered.csv')
-    eluted_df = pd.read_csv(data_path + f'{BC}_contamination_filtered.csv')
+    print(f'loading necessary datasets... {TF}')
+    
+    position_on_chip = metadata[(metadata['experiment'] == experiment_name) & (metadata['TF'] == TF)]['Chip_pos'].values[0]
+    input_df = pd.read_csv(data_path + f'{input_id}_{position_on_chip}_raw_data.csv')
+    eluted_df = pd.read_csv(data_path + f'{experiment_name}_{TF}_raw_data.csv')
     
     
     
@@ -276,26 +217,25 @@ for BC in to_be_analyzed:
     ###################################################################################
     # run ProBound
     for b_size in binding_mode_size:
-        name = TFs[barcodes[0] == BC]['Proteins'].values[0]
-        print(f"Starting analysis for {name} with a binding mode size of {b_size}.")
+        #name = TFs[barcodes[0] == BC]['Proteins'].values[0]
+        print(f"Starting analysis for {TF} with a binding mode size of {b_size}.")
         
+        results_path = save_path + f'{experiment_name}/results/{TF}/'
+        misc_path = save_path + f'{experiment_name}/misc/{TF}/'
         # Create necessary subfolders
         # results
-        try:
-            os.makedirs(f'{psam_path}/{name}/binding_mode_size_{b_size}/')
-        except FileExistsError:
-            pass
+        
+        os.makedirs(results_path, exist_ok=True)
+        
         
         #output 
         
-        try:
-            os.makedirs(f'{calc_path}/{name}/binding_mode_size_{b_size}/')
-        except FileExistsError:
-            pass
+        os.makedirs(misc_path, exist_ok=True)
+        
 
         
-        psam_path_TF = f'{psam_path}/{name}/binding_mode_size_{b_size}/'
-        calc_path_TF = f'{calc_path}/{name}/binding_mode_size_{b_size}/'
+        #psam_path_TF = f'{psam_path}/{name}/binding_mode_size_{b_size}/'
+        #calc_path_TF = f'{calc_path}/{name}/binding_mode_size_{b_size}/'
 
         # for the left flank, you of course have two different due to the mBC.. I will use mBC=AGTA for now
         # not very elegant, basically I concat the first three columns, save it as a list to be able to extract 
@@ -319,7 +259,7 @@ for BC in to_be_analyzed:
 
 
         #technically not necessary to save it with the name, this is why you have the config.alter_output func later
-        outputfile = calc_path_TF + "f_" + name + "_output.tsv"  
+        outputfile = misc_path + "f_" + TF + "_output.tsv"
         count_table = pbo.build_count_table(df_input, df_eluted,
                                         output_filename=outputfile, gzip=False)
 
@@ -334,12 +274,12 @@ for BC in to_be_analyzed:
                                                         binding_modes=3,
                                                         binding_mode_size=b_size
                                                        )
-        basename = name + '_testmodel'
-        config.alter_output(output_path=calc_path_TF, 
+        basename = TF + '_testmodel'
+        config.alter_output(output_path=misc_path, 
                             base_name=basename, 
                             print_trajectory=True, 
                             verbose=False)
-        config_filename = calc_path_TF + name + '_config.json'  
+        config_filename = misc_path + TF + '_config.json'  
         config.print_json(config_filename)
 
         #########################################################################
@@ -350,12 +290,12 @@ for BC in to_be_analyzed:
         # ...aaaaaaand cleanup
         os.remove("tmp.optimization.out")
 
-        psams = pbo.get_psam(calc_path_TF + f"{basename}.models.json") 
+        psams = pbo.get_psam(misc_path + f"{basename}.models.json") 
 
         #########################################################################
         #Saving and visualizing PSAMs
         for j, psam in enumerate(psams):
-            psam.to_csv(psam_path_TF + name + f"_bindingmode_{str(j + 1)}.csv") 
+            psam.to_csv(results_path + TF + f"_bindingmode_{str(j + 1)}.csv") 
 
             fig, ax = plt.subplots(1,1,figsize=[10,6])
             logo = logomaker.Logo(psams[j],
@@ -375,10 +315,10 @@ for BC in to_be_analyzed:
             logo.ax.xaxis.set_tick_params(pad=-1)
             #logo.ax.set_ylim([-6, 4])
 
-            fig.suptitle(f"{name}_bindingmode_{str(j + 1)}")
+            fig.suptitle(f"{TF}_bindingmode_{str(j + 1)}")
 
-            fig.savefig(psam_path_TF + name + f"_bindingmode_{str(j + 1)}_logo.pdf", format='pdf')
-            fig.savefig(psam_path_TF + name + f"_bindingmode_{str(j + 1)}_logo.png", format='png')
+            fig.savefig(results_path + TF + f"_bindingmode_{str(j + 1)}_logo.pdf", format='pdf')
+            fig.savefig(results_path + TF + f"_bindingmode_{str(j + 1)}_logo.png", format='png')
             plt.close()
 
 

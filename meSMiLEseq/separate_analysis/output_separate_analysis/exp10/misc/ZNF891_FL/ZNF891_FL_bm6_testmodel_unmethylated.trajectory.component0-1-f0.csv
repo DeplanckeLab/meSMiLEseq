@@ -1,0 +1,16 @@
+{"modelSettings":{"enrichmentModel":[{"bindingSaturation":false,"cumulativeEnrichment":true,"concentration":1,"modelType":"SELEX","bindingModeInteractions":[],"bindingModes":[0,1,2,3],"modifications":[]}],"countTable":[{"leftFlank":"GAATGGTTTACTA","transliterate":{"in":[],"out":[]},"variableRegionLength":24,"modeledColumns":[0,1],"inputFileType":"tsv","nColumns":2,"rightFlank":"TAGAG","countTableFile":"/data/gralak/meSMiLEseq_github/meSMiLEseq/separate_analysis/output_separate_analysis/exp10/misc/ZNF891_FL/f_ZNF891_FL_bm6_unmethylated_output.tsv"}],"bindingModeInteractions":[],"bindingModes":[{"size":0,"fitLogActivity":true,"flankLength":0,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":6,"fitLogActivity":true,"flankLength":5,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":6,"fitLogActivity":true,"flankLength":5,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]},{"size":6,"fitLogActivity":true,"flankLength":5,"dinucleotideDistance":0,"positionBias":false,"singleStrand":false,"modifications":[]}]},"packing":{"enrichmentModel":[{}],"countTable":[{"h":[2,3]}],"bindingModeInteractions":[],"bindingModes":[{"mononucleotide":[],"activity":[[0,1]]},{},{},{}]}}
+-6.9078,-6.9078,-3.1289,3.1289
+-6.9078,-6.9078,-3.1289,3.1289
+-6.9077,-6.9076,-3.1289,3.1289
+-6.9072,-6.9072,-3.1287,3.1287
+-6.8298,-6.8314,-3.0920,3.0920
+-6.6772,-6.6828,-3.0188,3.0188
+-6.1794,-6.1993,-2.7791,2.7791
+-5.0814,-5.1342,-2.2488,2.2488
+-2.9888,-3.1065,-1.2361,1.2361
+-0.6568,-0.8489,-0.1054,0.1054
+0.3319,0.1062,0.3760,-0.3760
+0.1752,-0.0468,0.3013,-0.3013
+0.0222,-0.1951,0.2274,-0.2274
+0.0008,-0.2159,0.2170,-0.2170
+-0.0000,-0.2166,0.2166,-0.2166

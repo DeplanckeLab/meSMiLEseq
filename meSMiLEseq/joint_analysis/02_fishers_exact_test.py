@@ -23,13 +23,14 @@ print('#### Fishers exact test with SmileSeq sequences ©Antoni Gralak_20.08.24#
 print('#########################################################################')
 print('Setting env...')
 this_path = os.getcwd()
+sys.path.append(os.path.join(this_path, '..'))
 
 # Load metadata
-metadata = pd.read_csv('../exemplary_data/metadata.csv', sep=';')
+metadata = pd.read_csv('../metadata.csv')
 
-data_path = '../output/01_kmer_analysis/'
+data_path = '../output_joint_analysis/01_kmer_analysis/'
 
-save_path = '../output/02_fishers_exact_test/'
+save_path = '../output_joint_analysis/02_fishers_exact_test/'
 
 try:
     os.mkdir(save_path)

@@ -27,16 +27,24 @@ print('#### Data Wrangling with SmileSeq sequences ©Antoni Gralak_19.05.2025###
 print('#########################################################################')
 print('Setting env...')
 this_path = os.getcwd()
-sys.path.append('../meSMiLEseq/')
-
-
-# %%
-
-
+sys.path.append(os.path.join(this_path, '..'))
 import utils
 
 
+
+
+# Load metadata
+metadata = pd.read_csv('../metadata.csv')
+
+data_path = '../output_joint_analysis/00_read_in_data/'
+
+save_path = '../output_joint_analysis/'
 # %%
+
+try:
+    os.mkdir(save_path)
+except FileExistsError:
+    pass
 
 
 # Creating a parser argument
@@ -44,11 +52,11 @@ parser = argparse.ArgumentParser("""This script reads in sequences generated in 
 of 24 nucleotides into kmers k=[6, 7, 8, 9]. It also calculates a p_value for all kmers 
 (multiple test correction benjamini-hochberg).""")
 
-parser.add_argument('-sms', '--sms_name', type=str, help='Smile-seq experiment number. E.g. SmSAG01.', required=True)
+parser.add_argument('-sms', '--sms_name', type=str, help='Smile-seq experiment number. E.g. exp1.', required=True)
 parser.add_argument('-k', '--kmer', type=int, nargs='+', help="""kmer size. By default k=[6, 7, 8, 9]. Parse multiple
  or a single integer.""")
-parser.add_argument('-bc', '--Barcode', type=str, nargs='+', help="""Barcodes to be included. By default all BC1 to 12.
-Parse multiple or single BCs.""")
+parser.add_argument('-tf', '--Transcription_factor', type=str, nargs='+', help="""TFs to be included. By default all TFs
+ that were approved in the experiment. Parse multiple or single TFs.""")
 #parser.add_argument('-gr', '--graphs', type=str, help='Do you want summary graphs? True/False', required=True)
 
 # Parse the command line arguments
@@ -56,121 +64,57 @@ args = parser.parse_args()
 arguments = vars(args)
 
 
-# %%
-
 
 experiment_name = arguments['sms_name'] 
 
 
-# %%
 
-
-if experiment_name in ['SmSAG01', 'SmSAG02', 'SmSAG03']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20220315_input/00_read_in_data/output/'
+if experiment_name in ['exp1', 'exp2', 'exp3']:
+    input_id = 'input1' 
     methylated_BC = "AGTA"
     unmethylated_BC = "GAGT"
-
-elif experiment_name in ['SmSAG04', 'SmSAG05', 'SmSAG06', 'SmSAG07', 'SmSAG08']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20220915_input/00_read_in_data/output/'
+elif experiment_name in ['exp4', 'exp5', 'exp6', 'exp7', 'exp8']:
+    input_id = 'input2'
     methylated_BC = "AGTA"
     unmethylated_BC = "GAAT"
-
-elif experiment_name in ['SmSAG09', 'SmSAG10', 'SmSAG11', 'SmSAG12', 'SmSAG13', 'SmSAG14']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20230228_input/00_read_in_data/output/'
+elif experiment_name in ['exp9', 'exp10', 'exp11', 'exp12', 'exp13', 'exp14']:
+    input_id = 'input3'
     methylated_BC = "AGTA"
     unmethylated_BC = "GAAT"
-
-elif experiment_name in ['SmSAG15', 'SmSAG16', 'SmSAG17', 'SmSAG18', 'SmSAG19', 'SmSAG20', 'SmSAG21', 'SmSAG22', 'SmSAG23']:
-    input_data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/inputs/20230503_input/00_read_in_data/output/'
+elif experiment_name in ['exp15', 'exp16', 'exp17', 'exp18', 'exp19', 'exp20', 'exp21', 'exp22', 'exp23']:
+    input_id = 'input4'
     methylated_BC = "AGTA"
     unmethylated_BC = "GAAT"
-
 else:
-    print("-sms needs to be a SmileSeq name such as SmSAG01 (possible options 01 to 23). Stopping script.")
+    print("-sms needs to be a experiment ID, e.g. exp1 (possible options 1 to 23). Stopping script.")
     sys.exit(1)
-
-
-# %%
-
-
-data_path = '/home/gralak/updepla/users/gralak/NAS2/SmileSeq_paper/SmileSeq_experiments/' + experiment_name + '/00_read_in_data/output/'
-
-save_path = '/home/gralak/updepla/users/gralak/SmileSeq_paper/meSMiLEseq_joint_analysis/' + experiment_name + '/'
-
-
-# %%
-
-
-try:
-    os.makedirs(save_path + '01_kmer_analysis/')
-except FileExistsError:
-    pass
-
-try:
-    os.makedirs(save_path + '02_fishers_exact_test/')
-except FileExistsError:
-    pass
-
-output_path_01 = save_path + '01_kmer_analysis/'
-output_path_02 = save_path + '02_fishers_exact_test/'
-
-
-
-# %%
-
-
-if experiment_name == 'SmSAG01':
-    barcodes = pd.read_csv(this_path + '/' + experiment_name + '/Barcodes.csv', sep='\t', header=None)
-    TFs = pd.read_csv(this_path + '/' + experiment_name + '/analysed_TFs.csv', sep=';')
-    
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAGT"
-    
-elif experiment_name in ['SmSAG02', 'SmSAG03']:
-    barcodes = pd.read_csv(this_path + '/' + experiment_name + '/Barcodes.csv', sep=',', header=None)
-    TFs = pd.read_csv(this_path + '/' + experiment_name + '/analysed_TFs.csv', sep=';')
-
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAGT"
-    
-
-else:
-    barcodes = pd.read_csv(this_path + '/' + experiment_name + '/Barcodes.csv', header=None)
-    TFs = pd.read_csv(this_path + '/' + experiment_name + '/analysed_TFs.csv')
-    
-    methylated_BC = "AGTA"
-    unmethylated_BC = "GAAT"
-
-
-TFs = TFs[barcodes.loc[:,2]]
-
-#reindex
-TFs['index'] = np.arange(0, len(TFs), step=1)
-TFs = TFs.rename(index=TFs['index'])
-
-
-# %%
-
-
-names = barcodes[barcodes[2] == True][0].values.tolist()
-
-
-# %%
 
 
 # Define what will be analyzed
 
-if arguments['Barcode']:
-    to_be_analyzed = arguments['Barcode']
+
+if arguments['Transcription_factor']:
+    to_be_analyzed = arguments['Transcription_factor']
     
 else:
-    to_be_analyzed = ['BC1','BC2','BC3','BC4','BC5','BC6','BC7','BC8','BC9','BC10','BC11','BC12']
+    to_be_analyzed = list(metadata[(metadata['experiment'] == experiment_name) & (metadata['approved'] == True)]['TF'])
 
 
 if arguments['kmer']:
     kmers = arguments['kmer']
 else:
     kmers = [6, 7, 8, 9]
+
+
+
+
+output_path_01 = save_path + '01_kmer_analysis/'
+output_path_02 = save_path + '02_fishers_exact_test/'
+
+os.makedirs(output_path_01, exist_ok=True)
+os.makedirs(output_path_02, exist_ok=True)
+
+
 
 
 # %%
@@ -206,13 +150,15 @@ def find_similar_strings(input_str, strings):
 # %%
 
 
-print(f'Starting analysis for {experiment_name}.')
-for iterator, BC in enumerate(to_be_analyzed):
+print('Starting analysis.')
+for TF in to_be_analyzed:
     
-    print('loading necessary datasets...')
-    print(f'loading {experiment_name}, {BC}...')
-    input_df = pd.read_csv(input_data_path + f'{BC}_contamination_filtered.csv')
-    eluted_df = pd.read_csv(data_path + f'{BC}_contamination_filtered.csv')
+    print(f'loading necessary datasets... {TF}')
+
+    position_on_chip = metadata[(metadata['experiment'] == experiment_name) & (metadata['TF'] == TF)]['Chip_pos'].values[0]
+    
+    input_df = pd.read_csv(data_path + f'{input_id}_{position_on_chip}_raw_data.csv')
+    eluted_df = pd.read_csv(data_path + f'{experiment_name}_{TF}_raw_data.csv')
 
 
 
@@ -246,13 +192,13 @@ for iterator, BC in enumerate(to_be_analyzed):
     eluted_df.loc[similar_strings, 'methl'] = unmethylated_BC
 
 
-    name = TFs[barcodes[0] == BC]['Proteins'].values[0]
+    print('Data loaded.')
 
 ############################################################################################
 # split into kmers
 
     for kmer in kmers:
-        print(f'Starting with {kmer}mer for {name}...')
+        print(f'Starting with {kmer}mer for {TF}...')
         large_df = utils.kmer_counting(df=[input_df, eluted_df],
                                               kmer=kmer,
                                               status=['input','eluted'],
@@ -271,8 +217,8 @@ for iterator, BC in enumerate(to_be_analyzed):
         large_df.insert(4,'CpG', CpG)
 
 
-        large_df.to_csv(output_path_01 + f'{name}_{str(kmer)}mer_enrichment.csv', index=False)
-        print(str(kmer) + f'mer dataframe for {name} saved!')
+        large_df.to_csv(output_path_01 + f'{experiment_name}_{TF}_{kmer}mer_enrichment.csv', index=False)
+        print(str(kmer) + f'mer dataframe for {TF} saved!')
 
 
 
@@ -334,7 +280,7 @@ for iterator, BC in enumerate(to_be_analyzed):
 
         print('Done!')
 
-        result_df.to_csv(output_path_02 + f'{name}_{str(kmer)}mer_pvalues.csv', index=False)
+        result_df.to_csv(output_path_02 + f'{experiment_name}_{TF}_{kmer}mer_pvalues.csv', index=False)
         print('Done!')
         print('#' * 10)
 

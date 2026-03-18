@@ -1,0 +1,13 @@
+[
+{"function": "output", "outputPath": "/data/gralak/meSMiLEseq_github/meSMiLEseq/separate_analysis/output_separate_analysis/exp10/misc/ZNF891_FL/", "baseName": "ZNF891_FL_bm6_testmodel_methylated", "printTrajectory": true, "verbose": false},
+{"function": "optimizerSetting", "lambdaL2": 1e-06, "pseudocount": 20, "expBound": 40, "nThreads": 4, "nRetries": 3, "likelihoodThreshold": 0.0002},
+{"function": "addTable", "leftFlank": "AGTAGGTTTACTA", "rightFlank": "TAGAG", "variableRegionLength": 24, "countTableFile": "/data/gralak/meSMiLEseq_github/meSMiLEseq/separate_analysis/output_separate_analysis/exp10/misc/ZNF891_FL/f_ZNF891_FL_bm6_methylated_output.tsv", "nColumns": 2, "inputFileType": "tsv"},
+{"function": "addSELEX", "modelType": "SELEX", "bindingModes": [-1], "bindingModeInteractions": [-1], "cumulativeEnrichment": true, "concentration": 1, "bindingSaturation": false},
+{"function": "addNS"},
+{"function": "addBindingMode", "size": 6, "flankLength": 5, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 1, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]},
+{"function": "addBindingMode", "size": 6, "flankLength": 5, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 2, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]},
+{"function": "addBindingMode", "size": 6, "flankLength": 5, "dinucleotideDistance": 0, "singleStrand": false, "positionBias": false},
+{"function": "bindingModeConstraints", "index": 3, "maxFlankLength": -1, "maxSize": 18, "fittingStages": [{"optimizeFlankLength": true}, {"optimizeMotifShiftHeuristic": true}, {"optimizeSizeHeuristic": true}]}
+]
